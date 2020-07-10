@@ -28,6 +28,5 @@ public class InvoiceTest {
                         };
         double fare = invoiceGenerator.calculateFare(rides);
         Assert.assertEquals(30, fare, 0.0);
-
     }
 }
