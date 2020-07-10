@@ -1,13 +1,12 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 public class RideRepository {
-    Map<String, ArrayList<Ride>> userRidesMap = null;
-    public void addRides(String userId, Ride[] rides){
+    static Map<String, ArrayList<Ride>> userRidesMap = new HashMap<>();
+
+    public static void addRides(String userId, Ride[] rides){
         userRidesMap.put(userId, new ArrayList<>((Arrays.asList(rides))));
     }
-    public Ride[] getRides(String userId){
-        return this.userRidesMap.get(userId).toArray(new Ride[0]);
+    public static Ride[] getRides(String userId){
+        return userRidesMap.get(userId).toArray(new Ride[0]);
     }
 }
