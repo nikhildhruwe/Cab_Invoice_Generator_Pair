@@ -5,7 +5,7 @@ public class InvoiceTest {
     @Test
     public void givenDistanceAndTime_ShouldReturnTotalFare() {
             InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
-            double distance = 2.4;
+            double distance = 2;
             int time = 5;
         double fare = invoiceGenerator.calculateFare(distance, time);
         Assert.assertEquals(25, fare , 0.0);
