@@ -14,7 +14,7 @@ public class InvoiceTest {
     public void givenDistanceAndTime_ShouldReturnTotalFare() {
             double distance = 2;
             int time = 5;
-        double fare = invoiceGenerator.calculateFare(distance, time);
+        double fare = invoiceGenerator.calculateFare(RideType.NORMAL, distance, time);
         Assert.assertEquals(25, fare , 0.0);
     }
 
@@ -22,14 +22,14 @@ public class InvoiceTest {
     public void givenLessDistanceAndTime_ShouldReturnMinFare() {
         double distance = 0.1;
         int time = 1;
-        double fare = invoiceGenerator.calculateFare(distance, time);
+        double fare = invoiceGenerator.calculateFare(RideType.NORMAL, distance, time);
         Assert.assertEquals(5, fare , 0.0);
     }
 
     @Test
     public void giveMultipleRides_shouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(2.0,5),
-                        new Ride(0.1,1),
+        Ride[] rides = {new Ride(RideType.NORMAL,2.0,5),
+                        new Ride(RideType.NORMAL,0.1,1),
                         };
         InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2,30.0);
@@ -38,8 +38,8 @@ public class InvoiceTest {
 
     @Test
     public void giveUserIdWithMultipleRides_shouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(2.0,5),
-                new Ride(0.1,1),
+        Ride[] rides = {new Ride(RideType.NORMAL,2.0,5),
+                new Ride(RideType.NORMAL,0.1,1),
                 };
         invoiceGenerator.addRide("sai", rides);
         InvoiceSummary summary = invoiceGenerator.getInvoiceSummary("sai");
@@ -49,9 +49,20 @@ public class InvoiceTest {
 
     @Test
     public void givenPremiumUserId_GenerateTotalFare_ShouldReturnInvoiceSummery() {
-        Ride[] rides = {new Ride(RideType.PREMIUM, 35.0, 45), new Ride(RideType.PREMIUM, 10.55, 30), new Ride(RideType.NORMAL, 20, 30)};
+        Ride[] rides = {new Ride(RideType.PREMIUM, 35.0, 45)
+                , new Ride(RideType.PREMIUM, 10.55, 30), new Ride(RideType.PREMIUM, 20, 30)};
         invoiceGenerator.addRide("Nikhil", rides);
         InvoiceSummary invoiceSummery = invoiceGenerator.getInvoiceSummary("Nikhil");
+        InvoiceSummary expectedSummery = new InvoiceSummary(3, 1193.25);
+        Assert.assertEquals(expectedSummery, invoiceSummery);
+    }
+
+    @Test
+    public void givenNormalUserId_GenerateTotalFare_ShouldReturnInvoiceSummery() {
+        Ride[] rides = {new Ride(RideType.NORMAL, 35.0, 45)
+                , new Ride(RideType.NORMAL, 10.55, 30), new Ride(RideType.NORMAL, 20, 30)};
+        invoiceGenerator.addRide("sai", rides);
+        InvoiceSummary invoiceSummery = invoiceGenerator.getInvoiceSummary("sai");
         InvoiceSummary expectedSummery = new InvoiceSummary(3, 760.5);
         Assert.assertEquals(expectedSummery, invoiceSummery);
     }
