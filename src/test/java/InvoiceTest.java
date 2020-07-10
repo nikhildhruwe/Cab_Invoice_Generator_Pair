@@ -33,6 +33,6 @@ public class InvoiceTest {
                         };
         InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2,30.0);
-        Assert.assertEquals(30, summary);
+        Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 }
