@@ -1,3 +1,5 @@
+import java.io.Reader;
+
 public class InvoiceGenerator {
     private static final double MINIMUM_COST_PER_KM = 10;
     private static final double COST_PER_TIME = 1;
@@ -12,6 +14,10 @@ public class InvoiceGenerator {
     }
 
     public double calculateFare(Ride[] rides) {
-        return 0.0;
+        double totalFare = 0;
+        for(Ride ride : rides){
+           totalFare += this.calculateFare(ride.distance, ride.time);
+        }
+        return  totalFare;
     }
 }
