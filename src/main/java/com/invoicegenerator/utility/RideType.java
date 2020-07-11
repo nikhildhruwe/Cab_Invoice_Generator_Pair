@@ -7,9 +7,9 @@ public enum RideType {
     public final int costPerTime;
     public final int minFare;
 
-    RideType(double minimumCostPerKM, int costPerTime, int minFare) {
+    RideType(double minimumCostPerKM, int costPerTime, int minimumFare) {
         this.minimumCostPerKM = minimumCostPerKM;
         this.costPerTime = costPerTime;
-        this.minFare = minFare;
+        this.minFare = minimumFare;
     }
 }

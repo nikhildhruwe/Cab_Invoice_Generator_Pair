@@ -8,7 +8,7 @@ import com.invoicegenerator.utility.RideType;
 public class InvoiceGenerator {
     public double calculateFare(RideType rideType, double distance, int time) {
         double totalFare = distance * rideType.minimumCostPerKM + time * rideType.costPerTime;
-        return Math.max(rideType.minFare, totalFare);
+        return Math.max(rideType.minimumCostPerKM, totalFare);
     }
 
     public InvoiceSummary calculateFare(Ride[] rides) {
