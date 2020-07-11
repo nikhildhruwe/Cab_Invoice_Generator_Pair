@@ -1,6 +1,6 @@
 import com.invoicegenerator.services.InvoiceGenerator;
-import com.invoicegenerator.services.InvoiceSummary;
-import com.invoicegenerator.services.Ride;
+import com.invoicegenerator.model.InvoiceSummary;
+import com.invoicegenerator.model.Ride;
 import com.invoicegenerator.utility.RideType;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,16 +10,16 @@ public class InvoiceTest {
     InvoiceGenerator invoiceGenerator = null;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         invoiceGenerator = new InvoiceGenerator();
     }
 
     @Test
     public void givenDistanceAndTime_ShouldReturnTotalFare() {
-            double distance = 2;
-            int time = 5;
+        double distance = 2;
+        int time = 5;
         double fare = invoiceGenerator.calculateFare(RideType.NORMAL, distance, time);
-        Assert.assertEquals(25, fare , 0.0);
+        Assert.assertEquals(25, fare, 0.0);
     }
 
     @Test
@@ -27,27 +27,27 @@ public class InvoiceTest {
         double distance = 0.1;
         int time = 1;
         double fare = invoiceGenerator.calculateFare(RideType.NORMAL, distance, time);
-        Assert.assertEquals(5, fare , 0.0);
+        Assert.assertEquals(5, fare, 0.0);
     }
 
     @Test
     public void giveMultipleRides_shouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(RideType.NORMAL,2.0,5),
-                        new Ride(RideType.NORMAL,0.1,1),
-                        };
+        Ride[] rides = {new Ride(RideType.NORMAL, 2.0, 5),
+                new Ride(RideType.NORMAL, 0.1, 1),
+        };
         InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
-        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2,30.0);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 
     @Test
     public void giveUserIdWithMultipleRides_shouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(RideType.NORMAL,2.0,5),
-                new Ride(RideType.NORMAL,0.1,1),
-                };
+        Ride[] rides = {new Ride(RideType.NORMAL, 2.0, 5),
+                new Ride(RideType.NORMAL, 0.1, 1),
+        };
         invoiceGenerator.addRide("sai", rides);
         InvoiceSummary summary = invoiceGenerator.getInvoiceSummary("sai");
-        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2,30.0);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 
