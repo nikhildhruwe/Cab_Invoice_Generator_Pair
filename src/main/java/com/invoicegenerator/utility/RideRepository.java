@@ -1,3 +1,7 @@
+package com.invoicegenerator.utility;
+
+import com.invoicegenerator.services.Ride;
+
 import java.util.*;
 
 public class RideRepository {

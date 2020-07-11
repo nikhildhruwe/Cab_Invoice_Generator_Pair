@@ -1,3 +1,7 @@
+package com.invoicegenerator.services;
+
+import com.invoicegenerator.utility.RideType;
+
 public class Ride {
 
     public double distance;

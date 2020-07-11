@@ -1,4 +1,4 @@
-import java.util.Objects;
+package com.invoicegenerator.services;
 
 public class InvoiceSummary {
     private final int numOfRides;

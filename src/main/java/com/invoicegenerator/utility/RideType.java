@@ -1,3 +1,5 @@
+package com.invoicegenerator.utility;
+
 public enum RideType {
 
     NORMAL(10,1,5) , PREMIUM(15,2,20);
