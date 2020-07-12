@@ -8,9 +8,6 @@ import com.invoicegenerator.utility.RideType;
 public class InvoiceGenerator {
     /**
      * Method to calculate fare.
-     * @param rideType
-     * @param distance
-     * @param time
      * @return maximum between minimum and totalFare.
      */
     public double calculateFare(RideType rideType, double distance, int time) {
@@ -21,7 +18,6 @@ public class InvoiceGenerator {
     /**
      * Calculating totalFare for all the rides of user.
      * @param rides
-     * @return
      */
     public InvoiceSummary calculateFare(Ride[] rides) {
         double totalFare = 0;
@@ -44,7 +40,6 @@ public class InvoiceGenerator {
     /**
      * Method to get invoice summary of the userID.
      * @param userId
-     * @return
      */
     public InvoiceSummary getInvoiceSummary(String userId) {
         Ride[] rides = RideRepository.getRides(userId);

@@ -27,7 +27,7 @@ public class InvoiceTest {
         double distance = 0.1;
         int time = 1;
         double fare = invoiceGenerator.calculateFare(RideType.NORMAL, distance, time);
-        Assert.assertEquals(5, fare, 0.0);
+        Assert.assertEquals(10, fare, 0.0);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class InvoiceTest {
                 new Ride(RideType.NORMAL, 0.1, 1),
         };
         InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
-        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 35.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 
@@ -47,7 +47,7 @@ public class InvoiceTest {
         };
         invoiceGenerator.addRide("sai", rides);
         InvoiceSummary summary = invoiceGenerator.getInvoiceSummary("sai");
-        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 35.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 
