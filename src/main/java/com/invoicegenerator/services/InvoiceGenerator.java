@@ -5,6 +5,10 @@ import com.invoicegenerator.model.Ride;
 import com.invoicegenerator.utility.RideRepository;
 import com.invoicegenerator.utility.RideType;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class InvoiceGenerator {
     /**
      * Method to calculate fare.
@@ -17,24 +21,22 @@ public class InvoiceGenerator {
 
     /**
      * Calculating totalFare for all the rides of user.
-     * @param rides
+     * @param rideList
      */
-    public InvoiceSummary calculateFare(Ride[] rides) {
-        double totalFare = 0;
-        for (Ride ride : rides) {
-            totalFare += this.calculateFare(ride.rideType, ride.distance, ride.time);
-        }
-
-        return new InvoiceSummary(rides.length, totalFare);
+    public InvoiceSummary calculateFare(List<Ride> rideList) {
+        double totalFare = rideList.stream()
+                                 .mapToDouble(ride -> this.calculateFare(ride.rideType, ride.distance, ride.time))
+                                 .sum();
+        return new InvoiceSummary(rideList.size(), totalFare);
     }
 
     /**
      * Method to userID and rides
      * @param userId
-     * @param rides
+     * @param rideList
      */
-    public void addRide(String userId, Ride[] rides) {
-        RideRepository.addRides(userId, rides);
+    public void addRide(String userId, ArrayList<Ride> rideList) {
+        RideRepository.addRides(userId, rideList);
     }
 
     /**
@@ -42,7 +44,7 @@ public class InvoiceGenerator {
      * @param userId
      */
     public InvoiceSummary getInvoiceSummary(String userId) {
-        Ride[] rides = RideRepository.getRides(userId);
-        return this.calculateFare(rides);
+        List<Ride> rideList = RideRepository.getRides(userId);
+        return this.calculateFare(rideList);
     }
 }

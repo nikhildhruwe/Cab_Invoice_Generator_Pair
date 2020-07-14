@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class InvoiceTest {
     InvoiceGenerator invoiceGenerator = null;
 
@@ -32,20 +34,21 @@ public class InvoiceTest {
 
     @Test
     public void giveMultipleRides_shouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(RideType.NORMAL, 2.0, 5),
-                new Ride(RideType.NORMAL, 0.1, 1),
-        };
-        InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
+        ArrayList<Ride> rideList = new ArrayList<>();
+        rideList.add(new Ride(RideType.NORMAL, 2.0, 5));
+        rideList.add(new Ride(RideType.NORMAL, 0.1, 1));
+        InvoiceSummary summary = invoiceGenerator.calculateFare(rideList);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 35.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 
     @Test
     public void giveUserIdWithMultipleRides_shouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(RideType.NORMAL, 2.0, 5),
-                new Ride(RideType.NORMAL, 0.1, 1),
-        };
-        invoiceGenerator.addRide("sai", rides);
+        ArrayList<Ride> rideList1 = new ArrayList<>();
+        rideList1.add(new Ride(RideType.NORMAL, 2.0, 5));
+        rideList1.add(new Ride(RideType.NORMAL, 0.1, 1));
+
+        invoiceGenerator.addRide("sai", rideList1);
         InvoiceSummary summary = invoiceGenerator.getInvoiceSummary("sai");
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 35.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
@@ -53,9 +56,12 @@ public class InvoiceTest {
 
     @Test
     public void givenPremiumUserId_GenerateTotalFare_ShouldReturnInvoiceSummery() {
-        Ride[] rides = {new Ride(RideType.PREMIUM, 35.0, 45)
-                , new Ride(RideType.PREMIUM, 10.55, 30), new Ride(RideType.PREMIUM, 20, 30)};
-        invoiceGenerator.addRide("Nikhil", rides);
+        ArrayList<Ride> rideList2 = new ArrayList<>();
+
+        rideList2.add(new Ride(RideType.PREMIUM, 35.0, 45));
+        rideList2.add(new Ride(RideType.PREMIUM, 10.55, 30));
+        rideList2.add(new Ride(RideType.PREMIUM, 20, 30));
+        invoiceGenerator.addRide("Nikhil", rideList2);
         InvoiceSummary invoiceSummery = invoiceGenerator.getInvoiceSummary("Nikhil");
         InvoiceSummary expectedSummery = new InvoiceSummary(3, 1193.25);
         Assert.assertEquals(expectedSummery, invoiceSummery);
@@ -63,9 +69,11 @@ public class InvoiceTest {
 
     @Test
     public void givenNormalUserId_GenerateTotalFare_ShouldReturnInvoiceSummery() {
-        Ride[] rides = {new Ride(RideType.NORMAL, 35.0, 45)
-                , new Ride(RideType.NORMAL, 10.55, 30), new Ride(RideType.NORMAL, 20, 30)};
-        invoiceGenerator.addRide("sai", rides);
+        ArrayList<Ride> rideList3 = new ArrayList<>();
+        rideList3.add(new Ride(RideType.NORMAL, 35.0, 45));
+        rideList3.add(new Ride(RideType.NORMAL, 10.55, 30));
+        rideList3.add(new Ride(RideType.NORMAL, 20, 30));
+        invoiceGenerator.addRide("sai", rideList3);
         InvoiceSummary invoiceSummery = invoiceGenerator.getInvoiceSummary("sai");
         InvoiceSummary expectedSummery = new InvoiceSummary(3, 760.5);
         Assert.assertEquals(expectedSummery, invoiceSummery);
